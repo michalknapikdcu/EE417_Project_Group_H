@@ -1,0 +1,62 @@
+The assignment requires dealing with a stream of sensor readings. As we do not have
+such data streams, we need to provide dummy sources of sensor readings. This will 
+be done by implementing server-side dummy sensors that communicate with client-side
+(the browser). 
+
+To this end {\bf the sensors will be registered in server-side database} and
+the server {\bf will continuously provide their readings} to the clients.
+
+\begin{figure}[h]
+\begin{lstlisting}[language=json,firstnumber=1]
+    {
+        "msgkind": "reading",
+        "sensor": <put sensor name here>,
+        "reading": <the numeric (can be 0-1 boolean) value sent by the sensor>,
+        "unit": <the unit of measured quantity, e.g. kph, decibels, or none>,
+        "location": <either a string with location name or numeric coordinates>
+    }
+\end{lstlisting}
+\caption{Abstract sensor reading: JSON definition}
+\label{fig:abstract_sensor}
+\vspace{4mm}
+\begin{lstlisting}[language=json,firstnumber=1]
+    {
+        "msgkind": "reading",
+        "sensor": "noise sensor",
+        "reading": 50,
+        "unit": "db",
+        "location": "Room C124, Henry Grattan Building, Glasnevin Campus"
+    }
+\end{lstlisting}
+\caption{Noise sensor reading: JSON definition}
+\label{fig:noisereading}
+\vspace{4mm}
+\begin{lstlisting}[language=json,firstnumber=1]
+    {
+        "msgkind": "reading",
+        "sensor": "parking sensor",
+        "reading": 1,
+        "unit": null,
+        "location": "Car Park 1, spot 113" 
+    }
+\end{lstlisting}
+\caption{Parking spot sensor reading (busy): JSON definition}
+\label{fig:parkingspotreading}
+\end{figure}
+
+\cref{fig:abstract_sensor} shows the template for abstract sensor readings
+while \cref{fig:noisereading} and \cref{fig:parkingspotreading} show how this
+can be specialized to two concrete cases.
+
+\section{Server-side events}
+
+We need to be able to:
+\begin{itemize}
+    \item Register a new sensor in the database. This registration should provide all the details
+    shown in JSON files above, plus valid reading ranges. 
+    \item Generate (every few seconds?) readings, probed from the reading ranges.
+    \item Send the readings to the clients, using a mechanism yet to be identified.
+\end{itemize}
+
+Concerning the final point above, this: \url{https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource}
+suggests that either WebSockets or Server-Side Events can be used.
