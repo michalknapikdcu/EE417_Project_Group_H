@@ -20,7 +20,7 @@ class SensorNotFoundAdvice {
 	@ResponseBody
 	@ExceptionHandler(SensorNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	BasicError employeeNotFoundHandler(SensorNotFoundException ex) {
+	BasicError sensorNotFoundHandler(SensorNotFoundException ex) {
 		
 		return new BasicError("NotFound", ex.getMessage());
 	}

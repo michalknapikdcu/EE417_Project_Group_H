@@ -1,10 +1,12 @@
 package app.sensors;
 
 import java.util.Objects;
+import java.util.Random;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 /**
  * A JPA entity that represents a generic sensor. This class describes the persistent structure
@@ -28,6 +30,10 @@ class Sensor {
 
 	// the string description of the location of the sensor
 	private String location;
+	
+	// the value of the last reading, -1 if error/none, do not serialize
+	@Transient
+	private int lastReading = -1;
 	
 	// -- constructors --
 	Sensor() {}
@@ -70,7 +76,15 @@ class Sensor {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
+	public int getLastReading() {
+		return lastReading;
+	}
 
+	public void setLastReading(int lastReading) {
+		this.lastReading = lastReading;
+	}
+	
 	// overridden Object method need to insert Sensors into Collections, etc.
 	@Override
 	public boolean equals(Object o) {
@@ -95,6 +109,40 @@ class Sensor {
 	@Override
 	public String toString() {
 		return "Sensor " + "id: " + this.id + ", name: " + this.name + ", unit: [" + this.unit + "], location: " + this.location;
+	}
+
+}
+
+/**
+ * This is a class that mocks readings from sensors. It fills the lastReadingField of the sensor with a dummy value.
+ * 
+ * - getDummyReading(Sensor with name "parking") will randomly set 0 (parking spot is free) or 1 (it is taken)
+ * - getDummyReading(Sensor with name "noise") will set a random value from 0 (silence) to 130 (extremely loud)
+ * - getDummyReading(Sensor with name "temperature") will set a random temperature value from -50 to 50 degrees 
+ * 
+ * Request for any other sensor name will set nothing, which means that lastReading will be -1 (default).
+ * 
+ * @author Michal Knapik 
+ */
+class MockSensorReading {
+	
+	private Random rnd = new Random();
+	
+	Sensor getDummyReading(Sensor sensor) {
+		
+		switch (sensor.getName()) {
+		case "parking":
+			sensor.setLastReading(rnd.ints(0, 2).findFirst().getAsInt());
+			break;
+		case "noise":
+			sensor.setLastReading(rnd.ints(0, 131).findFirst().getAsInt());
+			break;
+		case "temperature":
+			sensor.setLastReading(rnd.ints(-50, 51).findFirst().getAsInt());
+			break;
+		}
+		
+		return sensor;
 	}
 	
 }

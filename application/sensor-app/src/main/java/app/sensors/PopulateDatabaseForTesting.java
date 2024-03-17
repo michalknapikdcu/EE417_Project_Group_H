@@ -35,6 +35,7 @@ class PopulateDatabaseForTesting {
 			if (populate) {
 				log.info("Adding some dummy Sensor entries to the database.");
 				registry.save(new Sensor("noise", "decibels", "hall"));
+				registry.save(new Sensor("temperature", "celsius", "hall"));				
 				registry.save(new Sensor("parking", "Y/N", "Car Park 1, spot 113"));				
 			} else {
 				log.info("No dummy Sensor entries requested at startup.");

@@ -21,8 +21,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 
-// TODO - rename this 
-
 /**
  * This controller deals with serving data per path-based requests. This also includes stream of sensor readings.
  * 
@@ -31,7 +29,7 @@ import org.springframework.hateoas.EntityModel;
  * Based on https://spring.io/guides/tutorials/rest and https://github.com/Christian-Oette/demo-chat-app-sse-spring-boot
  */
 @RestController
-class EmployeeController {
+class SensorsController {
 
 	// database: the registry of all the Sensors
 	private final SensorRegistry registry;
@@ -43,10 +41,13 @@ class EmployeeController {
 	private static boolean verbose = true;
 	
 	// a logging object - this will handle logging to console during operations
-	private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);	
+	private static final Logger log = LoggerFactory.getLogger(SensorsController.class);	
 
 	// a list of emitters assigned to connecting clients
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    
+    // a mock data source for numeric sensor readings
+    private final MockSensorReading mockReadingSource = new MockSensorReading();
 
     // register a new client - helper function
     public SseEmitter registerClient() {
@@ -59,7 +60,7 @@ class EmployeeController {
     }
 	
 	// a constructor
-	EmployeeController(SensorRegistry registry, SensorModelAssembler assembler) {
+	SensorsController(SensorRegistry registry, SensorModelAssembler assembler) {
 		this.registry = registry; 
 		this.assembler = assembler;    
 	}
@@ -74,7 +75,7 @@ class EmployeeController {
 		List<EntityModel<Sensor>> sensors = registry.findAll().stream().map(assembler::toModel).collect(Collectors.toList());
 
 		// CollectionModel is a wrapper on collection of Entities
-		return CollectionModel.of(sensors, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+		return CollectionModel.of(sensors, linkTo(methodOn(SensorsController.class).all()).withSelfRel());
 	} 
 
 	// operation: save a sensor (Sensor model guarantees unique Ids)
@@ -145,13 +146,20 @@ class EmployeeController {
        	return this.registerClient();
     }
     
-    // scheduled operation: send readings to all the emitters
-    @Scheduled(fixedRate = 1000)
+    // scheduled operation: every 10 seconds send a JSON with readings of all the sensors to all the emitters
+    @Scheduled(fixedRate = 10000)
     public void sendEvents() {
-    	log.info("Measurement sent!");
-        for (SseEmitter emitter: emitters) {
+    	
+    	// prepare a map from sensor ids to themselves, updated with readings
+		List<Sensor> sensorsWithReadings = registry.findAll().stream().collect(Collectors.toList());
+		for (Sensor sensor: sensorsWithReadings) {
+			this.mockReadingSource.getDummyReading(sensor);		
+		}
+		
+    	// send the map of all the readings to all subscribers
+    	for (SseEmitter emitter: emitters) {
             try {
-                emitter.send(System.currentTimeMillis());
+                emitter.send(sensorsWithReadings);
             } catch (IOException e) {
                 emitter.complete();
                 emitters.remove(emitter);

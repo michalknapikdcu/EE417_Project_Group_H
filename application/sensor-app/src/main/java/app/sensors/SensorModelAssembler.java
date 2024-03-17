@@ -22,8 +22,8 @@ class SensorModelAssembler implements RepresentationModelAssembler<Sensor, Entit
   public EntityModel<Sensor> toModel(Sensor sensor) {
 
     return EntityModel.of(sensor,
-        linkTo(methodOn(EmployeeController.class).one(sensor.getId())).withSelfRel(),
-        linkTo(methodOn(EmployeeController.class).all()).withRel("sensors"));
+        linkTo(methodOn(SensorsController.class).one(sensor.getId())).withSelfRel(),
+        linkTo(methodOn(SensorsController.class).all()).withRel("sensors"));
   }
   
 }

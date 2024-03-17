@@ -30,4 +30,5 @@ class BasicError {
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
+	
 }

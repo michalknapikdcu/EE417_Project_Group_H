@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * 
  * Based on https://spring.io/guides/tutorials/rest and https://howtodoinjava.com/spring-boot/spring-boot-servletinitializer/
  */
+@EnableScheduling
 public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override

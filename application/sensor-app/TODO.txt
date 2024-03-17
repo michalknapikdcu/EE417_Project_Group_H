@@ -1,6 +1,0 @@
-1. A minimal UI.
-2. MySQL connection.
-3. SSE.
-
-https://www.baeldung.com/jpa-entities
-https://medium.com/@AlexanderObregon/implementing-server-sent-events-sse-with-spring-cbf283171aef
