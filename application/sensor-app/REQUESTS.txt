@@ -1,0 +1,19 @@
+In browser:
+
+-- get the sensors registry
+localhost:8080/sensors
+
+-- get sensor no. 2, try higher ids to see error message
+localhost:8080/sensors/2
+
+Using Curl:
+
+-- register a new Sensor with given parameters
+curl -X POST localhost:8080/sensors -H 'Content-type:application/json' -d '{ "name":"humidity", "unit": "percent", "location": "Kitchen" }'
+
+-- delete a Sensor with a given id
+curl -X DELETE localhost:8080/sensors/1
+
+-- update a Sensor with id 1 (or add a new entry if nothing is under 112)
+curl -X PUT localhost:8080/sensors/1 -H 'Content-type:application/json' -d '{ "name":"humidity", "unit": "percent", "location": "Kitchen" }'
+
