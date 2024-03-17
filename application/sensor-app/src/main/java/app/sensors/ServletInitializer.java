@@ -2,6 +2,7 @@ package app.sensors;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Supposedly, this is needed to deploy the application to an external tomcat server via war file.

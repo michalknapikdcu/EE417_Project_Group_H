@@ -1,7 +1,9 @@
 package app.sensors;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,16 +15,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 
+// TODO - rename this 
+
 /**
- * This controller deals with serving data per path-based requests.
+ * This controller deals with serving data per path-based requests. This also includes stream of sensor readings.
  * 
  * @author Michal Knapik
  * 
- * Based on https://spring.io/guides/tutorials/rest
+ * Based on https://spring.io/guides/tutorials/rest and https://github.com/Christian-Oette/demo-chat-app-sse-spring-boot
  */
 @RestController
 class EmployeeController {
@@ -38,6 +44,19 @@ class EmployeeController {
 	
 	// a logging object - this will handle logging to console during operations
 	private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);	
+
+	// a list of emitters assigned to connecting clients
+    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
+    // register a new client - helper function
+    public SseEmitter registerClient() {
+        var emitter = new SseEmitter(Long.MAX_VALUE); // make a new emitter	
+        emitters.add(emitter); // insert it into the client's emitters list
+        emitter.onCompletion(() -> emitters.remove(emitter)); // remove it from the list if done
+        emitter.onTimeout(() -> emitters.remove(emitter)); // remove it from the list on timeout
+   
+        return emitter;
+    }
 	
 	// a constructor
 	EmployeeController(SensorRegistry registry, SensorModelAssembler assembler) {
@@ -119,5 +138,25 @@ class EmployeeController {
 	  registry.delete(sensor);
     
 	}
-  
+ 
+	// operation: register a new client to receive stream of sensor readings
+    @GetMapping("/sensors/stream")
+    public SseEmitter sseEmitter() {
+       	return this.registerClient();
+    }
+    
+    // scheduled operation: send readings to all the emitters
+    @Scheduled(fixedRate = 1000)
+    public void sendEvents() {
+    	log.info("Measurement sent!");
+        for (SseEmitter emitter: emitters) {
+            try {
+                emitter.send(System.currentTimeMillis());
+            } catch (IOException e) {
+                emitter.complete();
+                emitters.remove(emitter);
+            }
+        }
+    }    
+	
 }
