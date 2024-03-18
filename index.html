@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">	<!--link css code to work along with the html code-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--link to enable dropdown menus-->
+  <script src="script.js" defer></script>	<!--link to javascript file-->
+</head>
+<body>
+	<header>	<!--very top of the page-->
+        <h1>SMART DCU</h1>	<!--name of my application-->
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>	<!--when bar is clicked, the navigation bar is opened-->
+	
+	<div id="mySidenav" class="sidenav">
+	  <form id="form">	<!--creation of a form for user input-->
+		<input type="text" id="search" placeholder="Search..." class="search"/><i class="fa fa-fw fa-search"></i>	<!--search bar to enable user input what they want to watch-->
+	  </form>
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>	<!--when the 'x' is clicked, the navigation bar is closed-->
+	  
+	  <a href="index.html" name="linktome" id="linktome" target="_self"><i class="fa fa-fw fa-home"></i>Home</a> 
+	  <a href="account.html" name="linktome" id="linktome" target="_blank"><i class="fa fa-fw fa-user"></i>Account</a> <!--link to login or sign up-->
+	  <script src="account2.js" defer></script>
+
+	  <!--when the dropdown button next to 'Categories' is clicked, it opened to more tabs-->
+	  <button class="dropdown-btn"><i class="fa fa-folder-open"></i>Categories
+		<i class="fa fa-caret-down"></i>
+	  </button>
+		<div class="dropdown-container">
+   	  </div>
+
+	  <button class="dropdown-btn"><i class="fa fa-cog"></i>Settings
+		<i class="fa fa-caret-down"></i>
+	  </button>
+		<div class="dropdown-container">
+			<a href="#">Notifications</a>
+			<a href="#">Theme</a>
+			<a href="#">Privacy Policy</a>
+			<a href="#">Terms of Use</a>
+   	    </div>
+		   
+	  <a href="contact.html" name="linktome" id="linktome" target="_self"><i class="fa fa-fw fa-envelope"></i>Contact</a>
+	  <a href="about.html" name="linktome" id="linktome" target="_blank"><i class="fa fa-fw fa-info"></i>About</a>
+	  <a href="#" name="linktome" id="linktome" target="_self"><i class="fa fa-sign-out"></i>Sign out</a>
+	</div>
+    </header>
+
+	<div id="main"> <!--side nav to push page content to the right-->
+        <div class="container">
+			<div class="widget">
+                <h2>Population</h2>
+                <p>Current Campus Population: <span id="population">Loading...</span></p>
+                <p>Last Updated: <span id="population-update">Loading...</span></p>
+            </div>
+
+            <div class="widget">
+                <h2>Transportation</h2>
+				<p>Current Campus Transportation: <span id="transportation">Loading...</span></p>
+                <p>Cars: <span id="cars-count">Loading...</span></p>
+				<p>Buses: <span id="buses-count">Loading...</span></p>
+				<p>Bikes: <span id="bikes-count">Loading...</span></p>
+                <p>Last Updated: <span id="transportation-update">Loading...</span></p>
+            </div>
+
+			<div class="widget">
+                <h2>Air Quality Monitoring</h2>
+                <p>Current Air Quality: <span id="air-quality">Loading...</span></p>
+                <p>Last Updated: <span id="air-quality-update">Loading...</span></p>
+            </div>
+            
+            <div class="widget">
+                <h2>Room Noise Level</h2>
+                <p>Lecture halls: <span id="lecture-halls">Loading...</span></p>
+				<p>Classrooms: <span id="classrooms">Loading...</span></p>
+				<p>U Building: <span id="u-building">Loading...</span></p>
+				<p>Library: <span id="library">Loading...</span></p>
+				<p>Sports center: <span id="sports-center">Loading...</span></p>
+				<p>Inter-faith center: <span id="inter-faith-center">Loading...</span></p>
+				<p>Cafeteria: <span id="cafeteria">Loading...</span></p>
+                <p>Last Updated: <span id="noise-level-update">Loading...</span></p>
+            </div>
+            
+            <div class="widget">
+                <h2>Room Occupancy</h2>
+                <p>Occupancy: <span id="room-occupancy">Loading...</span></p>
+                <p>Last Updated: <span id="room-occupancy-update">Loading...</span></p>
+            </div>
+            
+            <div class="widget">
+                <h2>Campus Occupancy</h2>
+                <p>Vehicle Count: <span id="vehicle-count">Loading...</span></p>
+                <p>Pedestrian Count: <span id="pedestrian-count">Loading...</span></p>
+                <p>Last Updated: <span id="campus-occupancy-update">Loading...</span></p>
+            </div>
+            
+            <div class="widget">
+                <h2>Parking Sensors</h2>
+                <p>Total Parking Spaces: <span id="total-spaces">Loading...</span></p>
+                <p>Available Spaces: <span id="available-spaces">Loading...</span></p>
+                <p>Last Updated: <span id="parking-sensors-update">Loading...</span></p>
+            </div>
+        </div>
+
+	<footer>	<!--very bottom of the page-->
+        <p>&copy; 2024 SMART DCU. All rights reserved.</p>	<!--paragraph-->
+		<p><a href="https://www.SMARTDCU.com/">Visit SMARTDCU.com for help!</a></p>
+    </footer>
+</body>
+</html>
+
