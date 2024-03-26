@@ -22,20 +22,45 @@ header {	/*header will have the following properties and corresponding values*/
     width: 100%;
 }
 
-form {	/*the form will apear according to given display, direction and alignment*/
+form {	/*the form will appear according to given display, direction and alignment*/
     display: block;
     direction: row;
     align-items: center;
+    max-width: 200px;
 }
   
 label {	/*label with margin top of 10px*/
     margin-top: 10px;
+    display: block;
 }
   
 input {	/*input for 'search' tab created in html*/
     margin-bottom: 10px;
     padding: 5px;
     width: 200px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 .container {
@@ -137,14 +162,14 @@ input {	/*input for 'search' tab created in html*/
     transition: margin-left .5s;
     padding: 20px;
 }
-  
-footer {	/*design of footer of the page with corresponding color just like 'header' an other properties*/
+
+footer {    /*design of footer of the page with corresponding color just like 'header' an other properties*/
     background-color: #1c3b1b;
     color: #fff;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    bottom: 0px;
-    left:0px;
+    position: 0;
+    bottom: 0;
     width: 100%;
+    margin-top: auto;
 }
