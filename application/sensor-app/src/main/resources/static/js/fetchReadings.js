@@ -5,7 +5,7 @@ $(document).ready(function() {
 // Author: Michal Knapik, based on https://github.com/Christian-Oette/demo-chat-app-sse-spring-boot 
 
 // register stream source	
-const eventSource = new EventSource("/sensors/stream");
+const eventSource = new EventSource("sensors/stream");
     
     // handle incoming event by displaying readings in a table
     eventSource.onmessage = (event) => {
