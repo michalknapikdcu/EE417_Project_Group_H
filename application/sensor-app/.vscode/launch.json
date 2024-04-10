@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SensorsServer<Sensor-stream>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "app.sensors.SensorsServer",
+            "projectName": "Sensor-stream",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
