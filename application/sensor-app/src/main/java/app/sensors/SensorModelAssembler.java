@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 class SensorModelAssembler implements RepresentationModelAssembler<Sensor, EntityModel<Sensor>> {
 
-  @SuppressWarnings("null")
   @Override
   public EntityModel<Sensor> toModel(Sensor sensor) {
 
