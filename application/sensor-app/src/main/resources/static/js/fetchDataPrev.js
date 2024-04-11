@@ -31,7 +31,7 @@ function fetchData(data) {
     widget.className = 'widget';
     container.appendChild(widget);
     widget.innerHTML = '<h2>' + data.name.charAt(0).toUpperCase() + data.name.slice(1) + '</h2>';
-    widget.innerHTML += '<p>Last Updated: <span id="noise-widget-update">' + new Date().toLocaleTimeString() + '</span></p>';
+    widget.innerHTML += '<h4>Last Updated: <span id="noise-widget-update">' + new Date().toLocaleTimeString() + '</span></h4>';
   }
   var widget = document.getElementById(data.name + '-widget');
   widget.innerHTML += '<p>' + data.location + ' | available: <span id="' + data.location + '-' + data.name + '">' + data.lastReading + '</span> ' + data.unit + '</p>';
@@ -44,7 +44,6 @@ function fetchData(data) {
  * Finally, ends the widget and logs any errors that occur during the process.
  */
 function fetchAllSensorData() {
-  initWidget();
   var container = document.getElementsByClassName('container')[0];
   container.innerHTML = '';
   fetch('sensors')
