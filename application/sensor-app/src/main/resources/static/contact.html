@@ -17,19 +17,20 @@
 					<h2>Contact Us</h2>
 					<p>Fill out the form below and a customer service representative will contact you shortly</p>
 				</div>
-				<form action="/action_page.php">
-					<label for="fname">First Name</label>
-					<input type="text" id="fname" name="firstname" required>
+			<form action="/api/contacts" method="post">
+					<label for="firstName">First Name</label>
+					<input type="text" id="firstName" name="firstName" required> <!-- Match Java field name -->
 
-					<label for="lname">Last Name</label>
-					<input type="text" id="lname" name="lastname" required>
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName" required> <!-- Match Java field name -->
 
-					<label for="number">Contact number</label>
-					<input type="number" id="number" name="number" required>
+					<label for="contactNumber">Contact number</label>
+					<input type="number" id="contactNumber" name="contactNumber" required>
+					<!-- Match Java field name -->
 
 					<label for="country">Country</label>
-					<select id="country" name="country"> <!--gives user a scrollbar to select value from-->
-						<option value="#"></option> <!--initialisation of different options within scrollbar-->
+					<select id="country" name="country">
+						<option value="#"></option>
 						<option value="ireland">Ireland</option>
 						<option value="uk">United Kingdom</option>
 						<option value="canada">Canada</option>
@@ -42,7 +43,6 @@
 						style="height:170px"></textarea>
 
 					<input type="submit" value="Submit">
-
 				</form>
 			</div>
 			<a href="index.html"></a>
