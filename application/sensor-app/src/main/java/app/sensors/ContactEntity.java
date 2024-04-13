@@ -11,14 +11,17 @@ import jakarta.persistence.Table;
  * @author Conor McCarthy
  */
 
+// Entity class replicates values stored in contact table in DB
+// 
 @Entity
+// Contact table name in DB
 @Table(name = "contact")
 public class ContactEntity {
-    @Id
+    @Id // Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "firstname")
+    // Column for each row in table
+    @Column(name = "firstname") // Exact name of row
     private String firstName;
 
     @Column(name = "lastname")
@@ -33,7 +36,7 @@ public class ContactEntity {
     @Column(name = "subject")
     private String subject;
 
-    // empty Constructors
+    // Empty Constructors
     public ContactEntity() {
     }
 
