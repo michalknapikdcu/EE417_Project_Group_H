@@ -66,6 +66,9 @@ function fetchAllSensorData() {
   fetch('sensors')
     .then(response => response.json())
     .then(data => {
+      if (!data || !data._embedded || !data._embedded["sensorList"]) {
+        return;
+      }
       data._embedded["sensorList"].forEach(sensor => {
         fetchData(sensor);
       });
@@ -73,6 +76,14 @@ function fetchAllSensorData() {
     .finally(() => {
     })
     .catch(error => console.error('Error:', error));
+
+    fetch('getAllSensors')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(sensor => {
+        console.log(sensor);
+      });
+    })
 }
 
 // Call fetchData every 10 seconds

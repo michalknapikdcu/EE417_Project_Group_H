@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -166,5 +169,18 @@ class SensorsController {
             }
         }
     }    
+	
+
+	@Autowired
+	private SensorsRepository sensorsRepository;
+
+	@GetMapping("/getAllSensors")
+	public List<Sensor> getAllSensors() {
+		try {
+			return sensorsRepository.findAll();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 }
