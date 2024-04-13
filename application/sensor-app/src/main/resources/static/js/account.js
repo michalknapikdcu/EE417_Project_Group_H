@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(login => {
             // Check the access_level from the login response
-            const accessLevel = login.access_level;
-            if (accessLevel === 'ADMIN') {
+            const role = login.role;
+            if (role === 'ADMIN') {
                 // Redirect to admin dashboard
                 window.location.href = 'admin.html';
-            } else if (accessLevel === 'USER') {
+            } else if (role === 'USER') {
                 // Redirect to user dashboard
                 window.location.href = 'index.html';
             } else {
