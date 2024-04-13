@@ -7,37 +7,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.servlet.view.RedirectView;
 
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 /*
  * @author Conor McCarthy
  */
+
 @Controller
 public class ContactController {
 
     private final ContactService contactService;
 
+    // Used to reference service class
     @Autowired
     public ContactController(ContactService contactService) {
-        this.contactService = contactService;
+        this.contactService = contactService; // Assign the injected service to the local reference.
     }
 
+    // Post mapping to receive post request from HTML form with endpoint
+    // "/api/contacts"
     @PostMapping("/api/contacts")
-    public RedirectView addContact(@ModelAttribute ContactDTO contactDTO, RedirectAttributes attributes) {
+    public RedirectView addContact(@ModelAttribute ContactDTO contactDTO) {
         try {
-            // map using DTO class
+            // ContactEntity object to save to the database.
             ContactEntity contact = new ContactEntity();
+
+            // Using DTO to update entity class's values
             contact.setFirstName(contactDTO.getFirstName());
             contact.setLastName(contactDTO.getLastName());
             contact.setContactNumber(contactDTO.getContactNumber());
             contact.setCountry(contactDTO.getCountry());
             contact.setSubject(contactDTO.getSubject());
 
+            // Calling the contact service to save the contact entity to the database.
             contactService.saveContact(contact);
-            // redirect on success
+
+            // Redirect to page on success
             return new RedirectView("/contact.html");
         } catch (Exception e) {
-            // redirect on fail
+            // Redirect to page on exception
             return new RedirectView("/contact.html");
         }
     }
