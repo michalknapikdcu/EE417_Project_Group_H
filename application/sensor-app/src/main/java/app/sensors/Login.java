@@ -40,12 +40,12 @@ public class Login {
 		this.password = password;
 	}
 
-	public String getAccessLevel() {
-		return access_level;
+	public String getRole() {
+		return role;
 	}
 
-	public void setAccessLevel(String access_level) {
-		this.access_level = access_level;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Column(nullable = false, unique = true)
@@ -55,7 +55,7 @@ public class Login {
     private String password;
     
     @Column(nullable = false)
-    private String access_level; // New field for user roles
+    private String role; 
 
     // Getters and setters
 }
