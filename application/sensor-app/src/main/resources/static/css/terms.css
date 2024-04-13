@@ -1,0 +1,40 @@
+/* terms.css */
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.termsContainer {
+    margin: 20px auto;
+    padding: 50px;
+    border: 1px solid #ccc;
+    max-width: 800px;
+}
+
+.termsContainer h2 {
+    margin-top: 0;
+}
+
+.termsContainer p {
+    margin-bottom: 20px;
+}
+
+.termsContainer ul {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

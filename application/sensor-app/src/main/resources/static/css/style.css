@@ -124,8 +124,24 @@ button:hover {
     transition: 0.3s;
 }
 
+.dropdown-container {
+    display: none;
+  }
+  /* Show the dropdown container when it has the 'show' class */
+  .dropdown-container.show {
+    display: block;
+  }
+
+  .dropdown-container2 {
+    display: none;
+  }
+  /* Show the dropdown container when it has the 'show' class */
+  .dropdown-container2.show {
+    display: block;
+  }
+
 /* Style the sidenav links and the dropdown button */
-.dropdown-btn {
+.dropdown-btn, .dropdown-btn2 {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -146,7 +162,7 @@ button:hover {
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
+.dropdown-container , .dropdown-container2 {
     display: none;
     background-color: #1c3b1b;
     padding-left: 10px;
