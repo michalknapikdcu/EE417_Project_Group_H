@@ -1,16 +1,22 @@
+<!-- theme.html -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <link rel="stylesheet" href="css/style.css"> <!--link css code to work along with the html code-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!--link to enable dropdown menus-->
-  <script src="js/fetchDataPrev.js" defer></script> <!--link to javascript file-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/fetchDataPrev.js" defer></script>
 </head>
 
-<body>
+<body id="content">
   <header> <!--very top of the page-->
-    <h1>SMART DCU</h1> <!--name of my application-->
+    <h1>Theme</h1> <!--name of my application-->
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
     <!--when bar is clicked, the navigation bar is opened-->
 
@@ -37,6 +43,7 @@
         <a href="category3.html">Ultrasonic Sensor for Parking</a>
       </div>
 
+
       <button class="dropdown-btn"><i class="fa fa-cog"></i>Settings
         <i class="fa fa-caret-down"></i>
       </button>
@@ -53,16 +60,21 @@
       <a href="#" name="linktome" id="linktome" target="_self"><i class="fa fa-sign-out"></i>Sign out</a>
     </div>
   </header>
-
-  <div id="main"> <!--side nav to push page content to the right-->
-    <div class="container" id="sensor-container"> <!--container for the sensors-->
+    <div class="themeContainer">
+        <div class="switchbar">
+            <p>Light theme</p>
+        <label class="switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider round"></span>
+        </label>
+        <p>Dark theme</p>
+    </div>
     </div>
 
-    <footer> <!--very bottom of the page-->
-      <p>&copy; 2024 SMART DCU. All rights reserved.</p> <!--paragraph-->
-      <p><a href="https://www.SMARTDCU.com/">Visit SMARTDCU.com for help!</a></p>
+    <footer>
+        <p>&copy; 2024 SMART DCU. All rights reserved.</p>
+        <p><a href="https://www.SMARTDCU.com/">Visit SMARTDCU.com for help!</a></p>
     </footer>
-
 </body>
 
 </html>
