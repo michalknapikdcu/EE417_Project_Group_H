@@ -1,55 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var loginForm = document.getElementById('loginForm');
+    var registrationForm = document.getElementById('registrationForm');
 
-    // Event listener for the login form
-    loginForm.addEventListener('submit', function (event) {
+    // Event listener for the registration form
+    registrationForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        loginUser();
+        validateRegistrationForm();
     });
 
-    // Function to login an existing user
-    function loginUser() {
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+    // Function to validate the registration form
+    function validateRegistrationForm() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
 
-        var data = {
-            username: username,
-            password: password
-        };
+        // Example validation checks
+        if (username.length < 10) {
+            document.getElementById('usernameHint').innerText = 'Username must be at least 10 characters.';
+        } else {
+            document.getElementById('usernameHint').innerText = '';
+        }
 
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (response.ok) {
-                // Authentication successful
-                return response.json();
-            } else {
-                // Authentication failed
-                throw new Error('Invalid username or password');
-            }
-        })
-        .then(login => {
-            // Check the access_level from the login response
-            const role = login.role;
-            if (role === 'ADMIN') {
-                // Redirect to admin dashboard
-                window.location.href = 'admin.html';
-            } else if (role === 'USER') {
-                // Redirect to user dashboard
-                window.location.href = 'index.html';
-            } else {
-                throw new Error('Unknown user role');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error.message);
-            // Display error message
-            alert(error.message);
-        });
+        if (password.length < 6) {
+            document.getElementById('passwordHint').innerText = 'Password must be at least 6 characters including uppsercase and lowercase letters.';
+        } else {
+            document.getElementById('passwordHint').innerText = '';
+        }
     }
 });

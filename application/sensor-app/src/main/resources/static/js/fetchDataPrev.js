@@ -14,6 +14,23 @@ function closeNav() {
   document.getElementById("main").style.marginLeft = "0";
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  var dropdownBtn = document.querySelector('.dropdown-btn');
+  var dropdownContainer = document.querySelector('.dropdown-container');
+
+  dropdownBtn.addEventListener('click', function() {
+    dropdownContainer.classList.toggle('show');
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var dropdownBtn = document.querySelector('.dropdown-btn2');
+  var dropdownContainer = document.querySelector('.dropdown-container2');
+
+  dropdownBtn.addEventListener('click', function() {
+    dropdownContainer.classList.toggle('show');
+  });
+});
 
 
 /**
