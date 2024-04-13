@@ -3,6 +3,8 @@ package app.sensors;
 /*
  * @author Conor McCarthy
  */
+// DTO class stores data submitted from HTML contact form
+// Getters and setters used in controller to map values to Entity class
 public class ContactDTO {
     private String firstName;
     private String lastName;
