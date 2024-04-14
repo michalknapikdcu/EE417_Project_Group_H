@@ -40,9 +40,6 @@ class PopulateDatabaseForTesting {
 			} else {
 				log.info("No dummy Sensor entries requested at startup.");
 			}
-			
 		};
-		
 	}
-  
 }

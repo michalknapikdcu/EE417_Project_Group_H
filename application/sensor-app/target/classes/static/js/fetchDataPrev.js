@@ -14,6 +14,23 @@ function closeNav() {
   document.getElementById("main").style.marginLeft = "0";
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  var dropdownBtn = document.querySelector('.dropdown-btn');
+  var dropdownContainer = document.querySelector('.dropdown-container');
+
+  dropdownBtn.addEventListener('click', function() {
+    dropdownContainer.classList.toggle('show');
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var dropdownBtn = document.querySelector('.dropdown-btn2');
+  var dropdownContainer = document.querySelector('.dropdown-container2');
+
+  dropdownBtn.addEventListener('click', function() {
+    dropdownContainer.classList.toggle('show');
+  });
+});
 
 
 /**
@@ -49,6 +66,9 @@ function fetchAllSensorData() {
   fetch('sensors')
     .then(response => response.json())
     .then(data => {
+      if (!data || !data._embedded || !data._embedded["sensorList"]) {
+        return;
+      }
       data._embedded["sensorList"].forEach(sensor => {
         fetchData(sensor);
       });
@@ -58,8 +78,37 @@ function fetchAllSensorData() {
     .catch(error => console.error('Error:', error));
 }
 
+function updateSensor(sensor) {
+  var sensorElement = document.getElementById(sensor.location + '-' + sensor.name);
+  if (sensorElement) {
+    sensorElement.innerText = sensor.lastReading;
+  }
+}
+
+function fetchSensorStream() {
+  fetch('sensors/stream')
+    .then(response => response.json())
+    .then(data => {
+      if (!data || !data._embedded || !data._embedded["sensorList"]) {
+        return;
+      }
+      data._embedded["sensorList"].forEach(sensor => {
+        updateSensor(sensor);
+      });
+    })
+    .finally(() => {
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 // Call fetchData every 10 seconds
-setInterval(fetchAllSensorData, 10000);
+// setInterval(fetchAllSensorData, 10000);
 
 // Initial data load
 fetchAllSensorData();
+
+// Call fetchSensorStream every 5 seconds
+// setInterval(fetchSensorStream, 5000);
+
+// Initial data load
+fetchSensorStream();

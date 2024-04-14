@@ -76,18 +76,39 @@ function fetchAllSensorData() {
     .finally(() => {
     })
     .catch(error => console.error('Error:', error));
+}
 
-    fetch('getAllSensors')
+function updateSensor(sensor) {
+  var sensorElement = document.getElementById(sensor.location + '-' + sensor.name);
+  if (sensorElement) {
+    sensorElement.innerText = sensor.lastReading;
+  }
+}
+
+function fetchSensorStream() {
+  fetch('sensors/stream')
     .then(response => response.json())
     .then(data => {
-      data.forEach(sensor => {
-        console.log(sensor);
+      if (!data || !data._embedded || !data._embedded["sensorList"]) {
+        return;
+      }
+      data._embedded["sensorList"].forEach(sensor => {
+        updateSensor(sensor);
       });
     })
+    .finally(() => {
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 // Call fetchData every 10 seconds
-setInterval(fetchAllSensorData, 10000);
+// setInterval(fetchAllSensorData, 10000);
 
 // Initial data load
 fetchAllSensorData();
+
+// Call fetchSensorStream every 5 seconds
+// setInterval(fetchSensorStream, 5000);
+
+// Initial data load
+fetchSensorStream();
