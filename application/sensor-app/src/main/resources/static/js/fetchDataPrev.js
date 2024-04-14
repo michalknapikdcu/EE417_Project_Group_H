@@ -102,7 +102,7 @@ function fetchSensorStream() {
 }
 
 // Call fetchData every 10 seconds
-// setInterval(fetchAllSensorData, 10000);
+setInterval(fetchAllSensorData, 10000);
 
 // Initial data load
 fetchAllSensorData();
