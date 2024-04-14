@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             password: password
         };
 
-        fetch('/login', {
+        fetch('http:localhost:8080/login', {                      //if deployed for production, localhost must be canged to cloud URL The cloud URL for our project is http://ec2-user@ec2-16-16-182-133.eu-north-1.compute.amazonaws.com:8080/Test
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
