@@ -1,0 +1,3 @@
+
+/application/sensor-app/target/*
+application/sensor-app/target/classes/static/js/fetchDataPrev.js

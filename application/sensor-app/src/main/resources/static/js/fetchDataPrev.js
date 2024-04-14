@@ -101,14 +101,27 @@ function fetchSensorStream() {
     .catch(error => console.error('Error:', error));
 }
 
-// Call fetchData every 20 seconds
-setInterval(fetchAllSensorData, 20000);
+// $(document).ready(function() {
+//   // Fetch the sensor data every 20 seconds
+//   setInterval(fetchAllSensorData, 20000);
 
-// Initial data load
-fetchAllSensorData();
+//   // Fetch the sensor stream every 10 seconds
+//   setInterval(fetchSensorStream, 10000);
 
-// Call fetchSensorStream every 10 seconds
-// setInterval(fetchSensorStream, 10000);
+//   // Initial data load
+//   fetchAllSensorData();
+//   fetchSensorStream();
+// } );
 
-// Initial data load
-fetchSensorStream();
+// // Call fetchData every 20 seconds
+// setInterval(fetchAllSensorData, 20000);
+
+// // Initial data load
+// fetchAllSensorData();
+
+// // Call fetchSensorStream every 10 seconds
+// // setInterval(fetchSensorStream, 10000);
+
+// // Initial data load
+// fetchSensorStream(); 
+

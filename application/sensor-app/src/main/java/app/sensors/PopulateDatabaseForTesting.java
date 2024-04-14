@@ -24,22 +24,22 @@ class PopulateDatabaseForTesting {
 	private static final Logger log = LoggerFactory.getLogger(PopulateDatabaseForTesting.class);	
 	
 	// Spring Boot will run this at startup
-	@Bean
-	CommandLineRunner initDatabase(SensorRegistry registry) {
+	// @Bean
+	// CommandLineRunner initDatabase(SensorRegistry registry) {
 		
-		// interface CommandLineRunner requires 'run' method; as it turns out lambda expressions
-		// can provide that out of the box
-		return args -> {
+	// 	// interface CommandLineRunner requires 'run' method; as it turns out lambda expressions
+	// 	// can provide that out of the box
+	// 	return args -> {
 			
-			// add some dummy sensors if required
-			if (populate) {
-				log.info("Adding some dummy Sensor entries to the database.");
-				registry.save(new Sensor("noise", "decibels", "hall"));
-				registry.save(new Sensor("temperature", "celsius", "hall"));				
-				registry.save(new Sensor("parking", "Y/N", "Car Park 1, spot 113"));				
-			} else {
-				log.info("No dummy Sensor entries requested at startup.");
-			}
-		};
-	}
+	// 		// add some dummy sensors if required
+	// 		if (populate) {
+	// 			log.info("Adding some dummy Sensor entries to the database.");
+	// 			registry.save(new Sensor("noise", "decibels", "hall"));
+	// 			registry.save(new Sensor("temperature", "celsius", "hall"));				
+	// 			registry.save(new Sensor("parking", "Y/N", "Car Park 1, spot 113"));				
+	// 		} else {
+	// 			log.info("No dummy Sensor entries requested at startup.");
+	// 		}
+	// 	};
+	// }
 }
