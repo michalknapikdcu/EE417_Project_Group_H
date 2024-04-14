@@ -101,14 +101,14 @@ function fetchSensorStream() {
     .catch(error => console.error('Error:', error));
 }
 
-// Call fetchData every 10 seconds
-setInterval(fetchAllSensorData, 10000);
+// Call fetchData every 20 seconds
+setInterval(fetchAllSensorData, 20000);
 
 // Initial data load
 fetchAllSensorData();
 
-// Call fetchSensorStream every 5 seconds
-// setInterval(fetchSensorStream, 5000);
+// Call fetchSensorStream every 10 seconds
+// setInterval(fetchSensorStream, 10000);
 
 // Initial data load
 fetchSensorStream();

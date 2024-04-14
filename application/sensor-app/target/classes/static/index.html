@@ -5,7 +5,125 @@
   <link rel="stylesheet" href="css/style.css"> <!--link css code to work along with the html code-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!--link to enable dropdown menus-->
-  <script src="js/fetchDataPrev.js" defer></script> <!--link to javascript file-->
+  <script>
+    /**
+    * Opens the side navigation menu.
+    */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    /**
+    * Closes the side navigation menu.
+    */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var dropdownBtn = document.querySelector('.dropdown-btn');
+      var dropdownContainer = document.querySelector('.dropdown-container');
+
+      dropdownBtn.addEventListener('click', function() {
+        dropdownContainer.classList.toggle('show');
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var dropdownBtn = document.querySelector('.dropdown-btn2');
+      var dropdownContainer = document.querySelector('.dropdown-container2');
+
+      dropdownBtn.addEventListener('click', function() {
+        dropdownContainer.classList.toggle('show');
+      });
+    });
+
+
+    /**
+    * Fetches the sensor data from the server.
+    * @param {Object} data - The sensor data.
+    * @param {string} data.location - The location of the sensor.
+    * @param {number} data.lastReading - The last reading of the sensor.
+    * @param {string} data.unit - The unit of the sensor.
+    */
+    function fetchData(data) {
+      if (!document.getElementById(data.name + '-widget')) {
+        var container = document.getElementsByClassName('container')[0];
+        var widget = document.createElement('div');
+        widget.id = data.name + '-widget';
+        widget.className = 'widget';
+        container.appendChild(widget);
+        widget.innerHTML = '<h2>' + data.name.charAt(0).toUpperCase() + data.name.slice(1) + '</h2>';
+        widget.innerHTML += '<h4>Last Updated: <span id="noise-widget-update">' + new Date().toLocaleTimeString() + '</span></h4>';
+      }
+      var widget = document.getElementById(data.name + '-widget');
+      widget.innerHTML += '<p>' + data.location + ' | available: <span id="' + data.location + '-' + data.name + '">' + data.lastReading + '</span> ' + data.unit + '</p>';
+    }
+
+    /**
+    * Fetches all sensor data from the server.
+    * Initializes the widget, fetches the sensor data, and processes it based on the sensor type.
+    * Finally, ends the widget and logs any errors that occur during the process.
+    */
+    function fetchAllSensorData() {
+      var container = document.getElementsByClassName('container')[0];
+      container.innerHTML = '';
+      fetch('sensors')
+        .then(response => response.json())
+        .then(data => {
+          if (!data || !data._embedded || !data._embedded["sensorList"]) {
+            return;
+          }
+          data._embedded["sensorList"].forEach(sensor => {
+            fetchData(sensor);
+          });
+        })
+        .finally(() => {
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function updateSensor(sensor) {
+      var sensorElement = document.getElementById(sensor.location + '-' + sensor.name);
+      if (sensorElement) {
+        sensorElement.innerText = sensor.lastReading;
+      }
+    }
+
+    function fetchSensorStream() {
+      fetch('sensors/stream')
+        .then(response => response.json())
+        .then(data => {
+          if (!data || !data._embedded || !data._embedded["sensorList"]) {
+            return;
+          }
+          data._embedded["sensorList"].forEach(sensor => {
+            updateSensor(sensor);
+          });
+        })
+        .finally(() => {
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Call fetchData every 10 seconds
+    setInterval(fetchAllSensorData, 10000);
+
+
+    // Call fetchSensorStream every 10 seconds
+    // setInterval(fetchSensorStream, 10000);
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      // Initial data load
+      fetchAllSensorData();
+      
+      // Initial data load
+      fetchSensorStream();
+    });
+  </script>
 </head>
 
 <body>
@@ -28,20 +146,23 @@
       <script src="./js/account2.js" defer></script>
 
       <!--when the dropdown button next to 'Categories' is clicked, it opened to more tabs-->
-      <button class="dropdown-btn"><i class="fa fa-folder-open"></i>Categories
+      <button class="dropdown-btn2"><i class="fa fa-folder-open"></i>Sensor Information
         <i class="fa fa-caret-down"></i>
       </button>
-      <div class="dropdown-container">
+      <div class="dropdown-container2">
+        <a href="category1.html">Temperature Sensor</a>
+        <a href="category2.html">Noise Sensor</a>
+        <a href="category3.html">Ultrasonic Sensor for Parking</a>
       </div>
 
       <button class="dropdown-btn"><i class="fa fa-cog"></i>Settings
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-container">
-        <a href="#">Notifications</a>
-        <a href="#">Theme</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
+        <a href="notification.html">Notifications</a>
+        <a href="theme.html">Theme</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
       </div>
 
       <a href="contact.html" name="linktome" id="linktome" target="_self"><i
@@ -59,6 +180,7 @@
       <p>&copy; 2024 SMART DCU. All rights reserved.</p> <!--paragraph-->
       <p><a href="https://www.SMARTDCU.com/">Visit SMARTDCU.com for help!</a></p>
     </footer>
+
 </body>
 
 </html>
