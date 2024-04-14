@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var loginForm = document.getElementById('loginForm');
+    var loginForm = document.getElementById('registrationForm'); // Update ID to 'registrationForm'
 
-    // Event listener for the login form
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        loginUser();
-    });
+    // Check if loginForm exists before adding event listener
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            loginUser();
+        });
+    } else {
+        console.error('Element with ID "registrationForm" not found'); // Update error message
+    }
 
     // Function to login an existing user
     function loginUser() {
